@@ -150,57 +150,6 @@ class ViewController: UIViewController {
         
         return users
     }
-    
-//    func storeData(user:UsersList) {
-//       guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-//        let manageContext = appDelegate.persistentContainer.viewContext
-//        guard let userEntity = NSEntityDescription.entity(forEntityName: "UserList", in: manageContext) else {return}
-//        let userObject = NSManagedObject(entity: userEntity, insertInto: manageContext)
-//        userObject.setValue(user, forKey: "mail")
-//        userObject.setValue(user.name, forKey: "name")
-//        userObject.setValue(user.age, forKey: "age")
-//        userObject.setValue(user.password, forKey: "password")
-//        userObject.setValue(user.phone, forKey: "phone")
-//        print(userObject)
-//        do {
-//          try manageContext.save()
-//            print("====success====")
-//        }catch {
-//            print("==error in storedata==")
-//        }
-//    }
-//    func getData() -> [UsersList] {
-//        var userList: [UsersList] = []
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return []}
-//         let manageContext = appDelegate.persistentContainer.viewContext
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "UserList")
-//
-//        do {
-//            let result = try manageContext.fetch(fetchRequest) as! [NSManagedObject]
-//            for users in result {
-//                let name = manageContext.value(forKey: "name") as? String
-//                let email = manageContext.value(forKey: "mail") as? String
-//                let age = manageContext.value(forKey: "age") as? String
-//                let password = manageContext.value(forKey: "password") as? String
-//                let phone = manageContext.value(forKey: "phone") as? String
-//
-//
-//                let user = UsersList(name: name ?? "lol"  , email:  "", password: "", phone:  "", image: nil, age: "")
-//                userList.append(user)
-//            }
-//        }catch {
-//
-//        }
-//        return userList
-//    }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 extension ViewController: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
