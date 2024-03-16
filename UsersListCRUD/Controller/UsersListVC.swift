@@ -8,14 +8,13 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController {
+class UsersListVC: UIViewController {
     
     var arrUsers:[UsersList] = []
     var user:UsersList!
     
     //Outlets:
     @IBOutlet weak var imgUser: UIImageView!
-  
     @IBOutlet weak var TableView: UITableView!
     override func viewDidLoad() {
         self.arrUsers = getData()
@@ -58,8 +57,6 @@ class ViewController: UIViewController {
             storeUser(user: usersList)
         }
     }
-    
-    
     func storeUser(user:UsersList) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let manageContext = appDelegate.persistentContainer.viewContext
@@ -80,8 +77,6 @@ class ViewController: UIViewController {
         }catch {
             print("===error===")
         }
-        
-        
     }
     func updateStoreData(user:UsersList , index : Int) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -95,13 +90,9 @@ class ViewController: UIViewController {
             result[index].setValue(user.phone, forKey: "phone")
             result[index].setValue(user.age, forKey: "age")
             try context.save()
-
         }catch {
             print("===error===")
-
         }
-
-        
     }
     func deleteUserData(index : Int) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -112,21 +103,15 @@ class ViewController: UIViewController {
            let userDelete = result[index]
             context.delete(userDelete)
             try context.save()
-
         }catch {
             print("===error===")
-
         }
-
-        
     }
-    
     func getData() -> [UsersList] {
         var users : [UsersList] = []
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return []}
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
-        
         do{
             let result = try context.fetch(fetchRequest) as! [NSManagedObject]
             for mangedUser in result {
@@ -137,12 +122,11 @@ class ViewController: UIViewController {
                 let age = mangedUser.value(forKey: "age") as? String
                 var image:UIImage? = nil
                 if let imgFromContext = mangedUser.value(forKey: "image") as? Data {
-                    let image = UIImage(data: imgFromContext)
+                     image = UIImage(data: imgFromContext)
                 }
                 let user = UsersList(name: name, email:email ?? "", password: password ?? "", phone: phone, image:  image , age: age)
                 users.append(user)
             }
-            
         }catch {
             print("===error===")
 
@@ -151,7 +135,7 @@ class ViewController: UIViewController {
         return users
     }
 }
-extension ViewController: UITableViewDelegate , UITableViewDataSource {
+extension UsersListVC: UITableViewDelegate , UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrUsers.count
     }
@@ -179,8 +163,3 @@ extension ViewController: UITableViewDelegate , UITableViewDataSource {
     }
 }
 
-//let name = managedContext.value(forKey: "name")
-//let age = managedContext.value(forKey: "age")
-//let email = managedContext.value(forKey: "email")
-//let password = managedContext.value(forKey: "password")
-//let phone = managedContext.value(forKey: "phone")
